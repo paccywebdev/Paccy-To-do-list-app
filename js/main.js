@@ -7,12 +7,48 @@ const routes = {
     'notes': window.renderNotes || (() => console.error('Notes logic missing'))
 };
 
+// Global Toggle Function (Available immediately)
+window.toggleSidebar = function (event) {
+    if (event) {
+        event.preventDefault(); // Prevent double calls on some devices
+        event.stopPropagation();
+    }
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    if (sidebar) sidebar.classList.toggle('open');
+    if (sidebarOverlay) sidebarOverlay.classList.toggle('hidden');
+    console.log('Sidebar toggled');
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Apply galactic theme by default on page load
     document.body.classList.add('bg-galactic');
 
     // Sidebar Navigation
     const navBtns = document.querySelectorAll('.nav-btn');
+
+    // ... (rest of the file)
+
+    // --- MOBILE SIDEBAR HANDLERS ---
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
+    const closeSidebarBtn = document.querySelector('.close-sidebar-btn');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const sidebar = document.querySelector('.sidebar');
+
+    // We use click, but mapped to global function
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', window.toggleSidebar);
+        // Add touchstart for better mobile responsiveness
+        hamburgerBtn.addEventListener('touchstart', window.toggleSidebar, { passive: false });
+    }
+    if (closeSidebarBtn) {
+        closeSidebarBtn.addEventListener('click', window.toggleSidebar);
+    }
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', window.toggleSidebar);
+    }
+
 
     // Navigate function
     function navigate(viewName) {
@@ -137,27 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Tip: Use the AI Agent to help you draft tasks effectively!');
         }
     });
-    // --- MOBILE SIDEBAR TOGGLE ---
-    const sidebar = document.querySelector('.sidebar');
-    const sidebarOverlay = document.getElementById('sidebar-overlay');
-    const hamburgerBtn = document.querySelector('.hamburger-btn');
-    const closeSidebarBtn = document.querySelector('.close-sidebar-btn');
-
-    function toggleSidebar() {
-        sidebar.classList.toggle('open');
-        sidebarOverlay.classList.toggle('hidden');
-    }
-
-    if (hamburgerBtn) hamburgerBtn.addEventListener('click', toggleSidebar);
-    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
-    if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
-
     // Close sidebar when a nav item is clicked on mobile
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
-                toggleSidebar();
+                window.toggleSidebar();
             }
         });
     });
 });
+

@@ -775,15 +775,18 @@ select:focus {
     .dashboard-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .charts-row {
         grid-template-columns: 1fr;
     }
+
     .full-width-chart {
         grid-column: span 1;
     }
 }
 
 @media (max-width: 768px) {
+
     /* Layout Structure */
     #app {
         flex-direction: column;
@@ -821,10 +824,15 @@ select:focus {
         justify-content: center;
         font-size: 1.2rem;
         color: var(--text-main);
+        z-index: 1001;
+        /* Ensure above everything in header */
+        position: relative;
+        cursor: pointer;
     }
 
     .nav-btn span {
-        display: inline; /* Ensure text is shown in off-canvas menu */
+        display: inline;
+        /* Ensure text is shown in off-canvas menu */
     }
 
     /* Top Bar Adjustments */
@@ -849,18 +857,19 @@ select:focus {
 
     .content-container {
         padding: 1rem;
-        padding-bottom: 80px; /* Space for footer */
+        padding-bottom: 80px;
+        /* Space for footer */
     }
 
     /* Hide text on header buttons for space */
     .header-actions .add-task-btn span {
         display: none;
     }
-    
+
     .header-actions .cloud-status span {
         display: none;
     }
-    
+
     .header-actions {
         gap: 0.8rem;
     }
@@ -872,7 +881,7 @@ select:focus {
         height: 40px;
         justify-content: center;
     }
-    
+
     /* Stats sizing */
     .stat-value {
         font-size: 2rem;
@@ -881,9 +890,10 @@ select:focus {
 
 @media (max-width: 480px) {
     .sidebar {
-        width: 85%; /* Slightly wider on very small screens */
+        width: 85%;
+        /* Slightly wider on very small screens */
     }
-    
+
     .top-bar {
         margin: 0;
         border-radius: 0;
@@ -895,7 +905,7 @@ select:focus {
     #page-title {
         font-size: 1.1rem;
     }
-    
+
     .stat-card {
         min-height: 120px;
     }
