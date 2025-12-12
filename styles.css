@@ -806,7 +806,14 @@ select:focus {
         flex-direction: column !important;
         align-items: stretch;
         justify-content: flex-start;
-        padding-top: 1rem;
+        padding: 1rem 1.5rem;
+        /* Stronger background on mobile for better readability */
+        background: rgba(17, 24, 39, 0.98) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        /* Allow scrolling if content overflows */
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .sidebar.open {
@@ -816,6 +823,7 @@ select:focus {
     /* Mobile Header Elements */
     .sidebar-header-mobile {
         display: flex !important;
+        padding-bottom: 0.5rem;
     }
 
     .hamburger-btn {
@@ -828,6 +836,25 @@ select:focus {
         /* Ensure above everything in header */
         position: relative;
         cursor: pointer;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    nav {
+        flex: 1;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+    }
+
+    .settings {
+        /* Ensure settings stay at bottom but are visible */
+        margin-top: auto;
+        flex-shrink: 0;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
 
     .nav-btn span {
