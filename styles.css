@@ -752,32 +752,152 @@ select:focus {
     animation: fadeIn 0.4s ease-out forwards;
 }
 
-/* Mobile Responsiveness tweak */
+/* Mobile Responsiveness & Off-Canvas Sidebar */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+.sidebar-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .charts-row {
+        grid-template-columns: 1fr;
+    }
+    .full-width-chart {
+        grid-column: span 1;
+    }
+}
+
 @media (max-width: 768px) {
+    /* Layout Structure */
     #app {
         flex-direction: column;
     }
 
     .sidebar {
-        width: 100%;
-        height: auto;
-        padding: 1rem;
-        flex-direction: row;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 1000;
+        transform: translateX(-105%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 10px 0 50px rgba(0, 0, 0, 0.5);
+        /* Ensure vertical layout inside sidebar */
+        flex-direction: column !important;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding-top: 1rem;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* Mobile Header Elements */
+    .sidebar-header-mobile {
+        display: flex !important;
+    }
+
+    .hamburger-btn {
+        display: flex !important;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: var(--text-main);
     }
 
     .nav-btn span {
-        display: none;
+        display: inline; /* Ensure text is shown in off-canvas menu */
     }
 
-    /* Hide text on mobile nav if needed */
+    /* Top Bar Adjustments */
+    .top-bar {
+        margin: 0.5rem 1rem 0;
+        padding: 0 1rem;
+        height: 70px;
+    }
+
+    #page-title {
+        font-size: 1.2rem;
+    }
+
+    /* Dashboard & Grid */
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
 
     .chart-container {
         grid-column: span 1;
+    }
+
+    .content-container {
+        padding: 1rem;
+        padding-bottom: 80px; /* Space for footer */
+    }
+
+    /* Hide text on header buttons for space */
+    .header-actions .add-task-btn span {
+        display: none;
+    }
+    
+    .header-actions .cloud-status span {
+        display: none;
+    }
+    
+    .header-actions {
+        gap: 0.8rem;
+    }
+
+    .add-task-btn {
+        padding: 0.6rem;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+    }
+    
+    /* Stats sizing */
+    .stat-value {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 85%; /* Slightly wider on very small screens */
+    }
+    
+    .top-bar {
+        margin: 0;
+        border-radius: 0;
+        border-right: none;
+        border-left: none;
+        border-top: none;
+    }
+
+    #page-title {
+        font-size: 1.1rem;
+    }
+    
+    .stat-card {
+        min-height: 120px;
     }
 }
 

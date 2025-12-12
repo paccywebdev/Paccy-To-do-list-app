@@ -137,4 +137,27 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Tip: Use the AI Agent to help you draft tasks effectively!');
         }
     });
+    // --- MOBILE SIDEBAR TOGGLE ---
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
+    const closeSidebarBtn = document.querySelector('.close-sidebar-btn');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('open');
+        sidebarOverlay.classList.toggle('hidden');
+    }
+
+    if (hamburgerBtn) hamburgerBtn.addEventListener('click', toggleSidebar);
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
+    if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    // Close sidebar when a nav item is clicked on mobile
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                toggleSidebar();
+            }
+        });
+    });
 });
